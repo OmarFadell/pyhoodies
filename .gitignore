@@ -1,0 +1,21 @@
+# Ignore frontend assets folder
+/frontend/assets/
+/products
+# Frontend
+node_modules/
+dist/
+build/
+
+# Django
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.env
+
+# Virtual env
+venv/
+env/
+
+# IDE settings
+.vscode/
+.idea/
