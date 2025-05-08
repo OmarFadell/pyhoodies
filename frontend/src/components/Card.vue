@@ -2,46 +2,26 @@
     <div class="product-card" @click="$router.push('/product')">
   
       
-    <button @click="toggleFavorite" class="favorite-btn" href="/product">
-        <span
-        class="material-symbols-outlined"
-        :style="{
-          fontVariationSettings: `'FILL' ${isFavorited ? 1 : 0}, 'wght' 400, 'GRAD' 0, 'opsz' 24`,
-          color: isFavorited ? 'black' : 'black'
-        }"
-      >
-        favorite
-      </span>
-    </button>
-  
+    
       <img :src="image" :alt="title" class="product-image" />
   
       <div class="product-info">
         <p class="product-title">{{ title }}</p>
         <div class="product-meta">
-          <span class="price">€ {{ price.toFixed(2) }}</span>
-          <span v-if="isNew" class="new-badge">NEW</span>
+          <span class="price">€ {{ price }}</span>
+          
         </div>
       </div>
     </div>
   </template>
 
 <script setup>
-
-defineProps({
+const props = defineProps({
   image: String,
   title: String,
-  price: Number,
-  isNew: Boolean,
-  isFavorited: Boolean
+  price: [String, Number]
 })
-
-const emit = defineEmits(['toggle-favorite'])
-
-function toggleFavorite(){
-    emit('toggle-favorite')
-}
-
+import { defineProps } from 'vue'
 </script>
 
 <style scoped>
@@ -53,6 +33,7 @@ function toggleFavorite(){
   width: 250px;
   background: white;
   transition: transform 0.2s;
+  
   
 }
 
@@ -78,31 +59,39 @@ function toggleFavorite(){
 
 .product-image {
   width: 100%;
-  object-fit: contain;
-  margin-bottom: 1rem;
+  object-fit: cover;
+  /* margin-bottom: 1rem; */
+  max-height: 15rem;
 }
 
 .product-info {
-  text-align: left;
+  text-align: center;
 }
 
 .product-title {
-  font-size: 0.85rem;
+  font-size: 1.1rem;
   margin-bottom: 0.3rem;
-  color: #3a3a3a;
-  font-family: "Red Hat Display", sans-serif;
-    font-weight: 700;
+  color: #000000;
+  /* font-family: "Red Hat Display", sans-serif; */
+  font-family: "playfair display", serif;
+  text-align: center;
+    font-weight: 500;
 }
 
 .product-meta {
   display: flex;
   align-items: center;
   gap: 8px;
+  text-align: center;
+  width: 100%;
+  justify-content: center;
 }
 
 .price {
   font-weight: bold;
   color:black;
+  font-family: "Red Hat Display", sans-serif;
+  text-align: center;
   
 }
 
@@ -118,13 +107,23 @@ function toggleFavorite(){
 @media (max-width: 768px) {
   .product-card {
     width: 100%;
-    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    /* padding: 0.5rem; */
+    height: 50vh;
+    
+    
   }
 
+  .product-image {
+    max-height: 20rem;
+    margin-bottom: 0.5rem;
+  }
+/* 
   .product-title {
     font-size: 1rem;
     margin: 0;
-    font-weight: 900;
+  
   }
 
   .price {
@@ -138,15 +137,16 @@ function toggleFavorite(){
 
   .product-image {
     width: 100%;
-    height: auto;
-  }
+    
+    
+     }
 
   .product-card{
     padding: 0;
   }
   .product-image{
     margin: 0;
-  }
+  } */
 }
 
 </style>

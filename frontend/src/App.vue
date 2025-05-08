@@ -13,8 +13,9 @@ import Footer from './components/Footer.vue';
   
   <style>
   .page-content {
-    padding-top: 0rem;
-    padding: 0rem 0rem;
-  }
+  width: 100vw;
+  padding-top: 1.5rem;
+  margin: 0;
+}
   </style>
   

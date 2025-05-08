@@ -27,9 +27,11 @@
                 
         </div>
         <div class="child">
-            <img src="../assets/bonologo.png" alt="Logo" class="logo" />
+            <!-- <img src="../assets/bonologo.png" alt="Logo" class="logo" /> -->
             
-            
+            <a href="/">
+                <img src="../assets/bonologo.png" alt="Logo" class="logo" />
+            </a>
         </div>
         <div class="child">
             
@@ -37,7 +39,9 @@
                
                 <li><span class="material-symbols-outlined" style="font-size: 2.5rem; font-weight: 500; color: black;">
                     shopping_cart
-                </span></li>
+                    </span>
+                </li>
+                
             </ul>
 
             <div class="search">
@@ -46,12 +50,11 @@
                 </span>
             </div>
         </div>
-        <div class="side-menu" :class="{ 'open': menuOpen }">
+        <!-- <div class="side-menu" :class="{ open: menuOpen }">
             <SideMenu v-if="menuOpen" @close="toggleMenu" />
+        </div> -->
 
-        <!-- <button @click="closesidemenubutton">Focus Child Button</button> -->
-
-        </div>
+        
 
     </div>
 </div>
@@ -82,6 +85,7 @@ const toggleMenu = () => {
   width: 100%;
   display: flex;
   flex-direction: column;
+  border: 1px blue solid;
 }
 .navbar {
     display: flex;
@@ -93,6 +97,7 @@ const toggleMenu = () => {
     width: 100%;  
     padding: 0rem 0rem;
     max-height: 6.5rem;
+    
 
 }
 
@@ -140,10 +145,11 @@ const toggleMenu = () => {
     display: flex;
     background-color: white;
     padding: 1rem 0rem;
-    /* border: 1px solid black; */
+    border: 1px solid red;
     justify-content: center;
     align-items: center;
-    /* max-height: 1rem; */
+    
+    
 }
 
 
@@ -247,16 +253,21 @@ const toggleMenu = () => {
         border: none;
     }
     .side-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100%;
-  background: white;
-  z-index: 1002;
- 
-  transition: transform 0.3s ease-in-out;
-}
+    display: flex;
+    position: absolute;
+    top: 0;
+    margin-top: 6.5rem;
+    height: 100vh;
+    left: 0; 
+    width: 100%;
+    background: white;
+    z-index: 1002;
+    /* border: 1px solid red; */
+    
+    transition: transform 0.3s ease-in-out;
+    }
+
+    
 
 
 

@@ -1,75 +1,111 @@
 <template>
   <div class="grid">
-    <div class="product-grid">
+   
+    <div class="product-grid" v-if="!loading">
+     
+      
       <Card href="/product"
         v-for="(product, index) in products"
         :key="index"
         :image="product.image"
         :title="product.title"
         :price="product.price"
-        :isNew="product.isNew"
-        :isFavorited="product.isFavorited"
+      />
+      
+      
+    </div>
+    <div class="homecarousel" v-if="!loading">
+      <Carousel v-bind="carouselConfig">
+  <Slide v-for="(product, index) in products" :key="index">
+    <div class="carousel__item">
+      <Card
+        :image="product.image"
+        :title="product.title"
+        :price="product.price"
       />
     </div>
-  </div>
+  </Slide>
+
+  <template #addons>
+    <Navigation />
+    <Pagination />
   </template>
+</Carousel>
+    </div>
+    <div class="product-grid">
+    <SkelatonCard v-if="loading" v-for="n in 6" :key="n" />
+    <!-- <Card
+      v-else
+      v-for="(product, index) in products"
+      :key="index"
+      :image="product.image"
+      :title="product.title"
+      :price="product.price"
+    /> -->
+  </div>
+  </div>
+</template>
   
   <script setup>
-import Card from './Card.vue';  
-  const products = [
-    {
-      image: '../src/assets/shirt.png',
-      title: 'Mas Que Nada',
-      price: 240,
-      isNew: false,
-      isFavorited: true
-    },
-    {
-        image: '../src/assets/shirt.png',
-      title: 'IRON VOLTAGE TOUR 2023',
-      price: 240,
-      isNew: true,
-      isFavorited: false
-    },
-    {
-        image: '../src/assets/shirt.png',
-      title: 'DEATHCORE LEGENDS',
-      price: 240,
-      isNew: true,
-      isFavorited: true
-    },
-    {
-        image: '../src/assets/shirt.png',
-      title: 'MOSH SEASON DROP',
-      price: 240,
-      isNew: false,
-      isFavorited: false
-    },
-    {
-        image: '../src/assets/shirt.png',
-      title: 'EXCLUSIVE TOUR MERCH',
-      price: 240,
-      isNew: true,
-      isFavorited: true
-    },
-    {
-        image: '../src/assets/shirt.png',
-      title: 'OG STREETWEAR',
-      price: 240,
-      isNew: false,
-      isFavorited: false
+  import Card from './Card.vue'
+  import { ref, onMounted } from 'vue'
+  import axios from 'axios'
+  import 'vue3-carousel/carousel.css'
+  import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+  import SkelatonCard from './SkelatonCard.vue'
+  const carouselConfig = {
+    wrapAround: true,
+    breakpoints: {
+      0: {
+        itemsToShow: 1
+      },
+      768: {
+        itemsToShow: 2
+      },
+      1024: {
+        itemsToShow: 5
+      }
     }
-  ]
+  }
+  const products = ref([])  
+  const loading = ref(true)
 
-  defineProps({
-    category: {
-      type: String,
-      required: true
+  onMounted(async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/products')
+      console.log(response.data)
+      products.value = response.data.map(product => ({
+        title: product.name,
+        price: product.price,
+        image: product.image_url,
+       
+      }))
+    } catch (error) {
+      console.error('Error fetching products:', error)
+    } finally{
+      loading.value = false
     }
+
+    console.log("products: ", products.value)
   })
+
   
   </script>
   <style scoped>
+
+  .homecarousel {
+    display: none;
+    margin: auto 10px;
+    width: 100%;
+    height: 100%;
+  }
+
+  .loading-message {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #555;
+    margin-top: 2rem;
+  }
   
   .product-grid {
     display: grid;
@@ -94,7 +130,20 @@ import Card from './Card.vue';
     .product-grid {
       grid-template-columns: repeat(1, 1fr); /* Two columns on smaller screens */
       margin: auto 10px;
+      display: none;
     }
+    
+    .homecarousel {
+      display: block;
+      margin: auto 10px;
+      width: 100%;
+      height: 100%;
+    }
+    .homecarousel .carousel__item {
+      width: 100%;
+      height: 50vh;
+    }
+
   }
   </style>
   

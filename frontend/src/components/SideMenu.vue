@@ -40,10 +40,8 @@ defineExpose({
 .bottomactions{
     display: flex;
     justify-content:flex-end;
-    
     height: 9rem;
-    width: 100%;
-    
+    width: 100%;  
     left: 0%;
 
 }
@@ -52,7 +50,7 @@ defineExpose({
 
 .bottomchild{
     width: 100%;
-    height: 4rem;
+    height: 35rem;
     /* background-color: #ccc; */
     justify-content: center;
     align-items: center;
@@ -64,7 +62,9 @@ defineExpose({
 }
 
 .sidemenu{
-width: 100%;    
+
+    width: 100%;    
+    margin-top: 100px;
 
 }
 
@@ -72,11 +72,12 @@ width: 100%;
     display: flex;
     top: 0%;
     left: 0%;
-    padding: 1rem;
+    padding: 2rem;
     width: 100%;
     /* height: 100%; */
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 9999;
+    
 }
 
 .mob-navs{
@@ -91,8 +92,7 @@ width: 100%;
     font-family: "Red Hat Display", sans-serif;
     font-weight: 700;
     padding: 0;
-    height: 58vh;
-    
+    /* height: 58vh; */
     
 }
 

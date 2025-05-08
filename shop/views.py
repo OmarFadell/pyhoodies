@@ -8,4 +8,3 @@ def product_list(request):
     products = Product.objects.all()
     serializer = ProductSerializer(products, many=True)
     return response.Response(serializer.data, status=status.HTTP_200_OK)
-# Create your views here.
