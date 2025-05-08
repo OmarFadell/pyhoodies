@@ -38,6 +38,10 @@
             <ul class="nav-links">
                
                 <li><span class="material-symbols-outlined" style="font-size: 2.5rem; font-weight: 500; color: black;">
+                    search
+                    </span>
+                </li>
+                <li><span class="material-symbols-outlined" style="font-size: 2.5rem; font-weight: 500; color: black;">
                     shopping_cart
                     </span>
                 </li>
@@ -50,11 +54,11 @@
                 </span>
             </div>
         </div>
-        <!-- <div class="side-menu" :class="{ open: menuOpen }">
+        <div class="side-menu" :class="{ open: menuOpen }">
             <SideMenu v-if="menuOpen" @close="toggleMenu" />
-        </div> -->
+        </div>
 
-        
+        <search/>
 
     </div>
 </div>
@@ -65,7 +69,7 @@ import {ref, onMounted} from 'vue';
 import SideMenu from './SideMenu.vue';
 import SpinningLogo from './SpinningLogo.vue';
 import belt from '../components/belt.vue';
-
+import search from './search.vue';
 const childRef = ref(null);
 
 function focusChildButton() {
@@ -85,7 +89,7 @@ const toggleMenu = () => {
   width: 100%;
   display: flex;
   flex-direction: column;
-  border: 1px blue solid;
+  /* border: 1px blue solid; */
 }
 .navbar {
     display: flex;
@@ -145,7 +149,7 @@ const toggleMenu = () => {
     display: flex;
     background-color: white;
     padding: 1rem 0rem;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     justify-content: center;
     align-items: center;
     
@@ -260,7 +264,7 @@ const toggleMenu = () => {
     height: 100vh;
     left: 0; 
     width: 100%;
-    background: white;
+    /* background: white; */
     z-index: 1002;
     /* border: 1px solid red; */
     

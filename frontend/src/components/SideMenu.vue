@@ -50,7 +50,7 @@ defineExpose({
 
 .bottomchild{
     width: 100%;
-    height: 35rem;
+    /* height: 35rem; */
     /* background-color: #ccc; */
     justify-content: center;
     align-items: center;
@@ -64,7 +64,8 @@ defineExpose({
 .sidemenu{
 
     width: 100%;    
-    margin-top: 100px;
+    /* margin-top: 100px; */
+    background-color: white;
 
 }
 

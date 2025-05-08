@@ -1,96 +1,61 @@
 <template>
   <div class="grid">
-   
-    <div class="product-grid" v-if="!loading">
-     
-      
-      <Card href="/product"
-        v-for="(product, index) in products"
-        :key="index"
-        :image="product.image"
-        :title="product.title"
-        :price="product.price"
-      />
-      
-      
-    </div>
-    <div class="homecarousel" v-if="!loading">
-      <Carousel v-bind="carouselConfig">
-  <Slide v-for="(product, index) in products" :key="index">
-    <div class="carousel__item">
+    <div class="product-grid" v-if="!store.loading">
       <Card
-        :image="product.image"
-        :title="product.title"
+        href="/product"
+        v-for="(product, index) in store.products"
+        :key="index"
+        :image="product.image_url"
+        :title="product.name"
         :price="product.price"
       />
     </div>
-  </Slide>
 
-  <template #addons>
-    <Navigation />
-    <Pagination />
-  </template>
-</Carousel>
+    <div class="homecarousel" v-if="!store.loading">
+      <Carousel v-bind="carouselConfig">
+        <Slide v-for="(product, index) in store.products" :key="index">
+          <div class="carousel__item">
+            <Card
+              :image="product.image_url"
+              :title="product.name"
+              :price="product.price"
+            />
+          </div>
+        </Slide>
+
+        <template #addons>
+          <Navigation />
+          <Pagination />
+        </template>
+      </Carousel>
     </div>
+
     <div class="product-grid">
-    <SkelatonCard v-if="loading" v-for="n in 6" :key="n" />
-    <!-- <Card
-      v-else
-      v-for="(product, index) in products"
-      :key="index"
-      :image="product.image"
-      :title="product.title"
-      :price="product.price"
-    /> -->
-  </div>
+      <SkelatonCard v-if="store.loading" v-for="n in 6" :key="n" />
+    </div>
   </div>
 </template>
-  
-  <script setup>
-  import Card from './Card.vue'
-  import { ref, onMounted } from 'vue'
-  import axios from 'axios'
-  import 'vue3-carousel/carousel.css'
-  import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
-  import SkelatonCard from './SkelatonCard.vue'
-  const carouselConfig = {
-    wrapAround: true,
-    breakpoints: {
-      0: {
-        itemsToShow: 1
-      },
-      768: {
-        itemsToShow: 2
-      },
-      1024: {
-        itemsToShow: 5
-      }
-    }
+
+
+<script setup>
+import Card from './Card.vue'
+import SkelatonCard from './SkelatonCard.vue'
+import { useProductStore } from '../productStore.js'
+import 'vue3-carousel/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+
+const store = useProductStore()
+
+const carouselConfig = {
+  wrapAround: true,
+  breakpoints: {
+    0: { itemsToShow: 1 },
+    768: { itemsToShow: 2 },
+    1024: { itemsToShow: 5 }
   }
-  const products = ref([])  
-  const loading = ref(true)
+}
+</script>
 
-  onMounted(async () => {
-    try {
-      const response = await axios.get('http://localhost:8000/api/products')
-      console.log(response.data)
-      products.value = response.data.map(product => ({
-        title: product.name,
-        price: product.price,
-        image: product.image_url,
-       
-      }))
-    } catch (error) {
-      console.error('Error fetching products:', error)
-    } finally{
-      loading.value = false
-    }
-
-    console.log("products: ", products.value)
-  })
-
-  
-  </script>
   <style scoped>
 
   .homecarousel {
